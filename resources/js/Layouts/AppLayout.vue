@@ -35,8 +35,8 @@ const menu = [
     },
     {
         name: 'Posts',
-        url: route('post.index'),
-        route: 'post.index',
+        url: route('posts.index'),
+        route: 'posts.index',
     },
 ];
 </script>

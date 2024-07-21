@@ -2,12 +2,12 @@
     <div class="flex items-center justify-between border-t border-gray-200 px-4 py-3 sm:px-6">
         <div class="flex flex-1 justify-between sm:hidden">
             <Link
-                :href="previousUrl"
+                :href="previousUrl" :only="only"
                 class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
                 Previous
             </Link>
             <Link
-                :href="nextUrl"
+                :href="nextUrl" :only="only"
                 class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50">
                 Next
             </Link>
@@ -39,6 +39,7 @@
 
                         }"
                           :href="link.url"
+                          :only="only"
                           class="relative inline-flex items-center first-of-type:rounded-l-md last-of-type:rounded-r-md px-3 py-2"
                           v-html="link.label">
 
@@ -55,7 +56,16 @@
 import {Link} from "@inertiajs/vue3";
 import {computed} from "vue";
 
-const props = defineProps(['meta']);
+const props = defineProps({
+    meta: {
+        type: Object,
+        required: true
+    },
+    only: {
+        type: Array,
+        default: () => []
+    }
+});
 
 const previousUrl = computed(() => props.meta.links[0].url);
 const nextUrl = computed(() => [...props.meta.links].reverse()[0].url);

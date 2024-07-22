@@ -24,10 +24,10 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 
-    Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name('posts.comments.store');
+    Route::resource('posts.comments', CommentController::class)->shallow()->only(['store', 'update', 'destroy']);
 
-    Route::delete('comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 Route::get('posts', [PostController::class, 'index'])->name('posts.index');
+
 Route::get('posts/{post}', [PostController::class, 'show'])->name('posts.show');

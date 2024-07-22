@@ -44,7 +44,7 @@ class CommentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CommentController $comment)
+    public function show(Comment $comment)
     {
         //
     }
@@ -52,7 +52,7 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CommentController $comment)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -60,7 +60,7 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CommentController $comment)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
@@ -68,8 +68,14 @@ class CommentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CommentController $comment)
+    public function destroy(Request $request, Comment $comment)
     {
-        //
+        if ($request->user()->id !== $comment->user_id) {
+            abort(403);
+        }
+
+        $comment->delete();
+
+        return to_route('posts.show', $comment->post_id);
     }
 }

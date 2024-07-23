@@ -6,10 +6,12 @@ use App\Http\Resources\CommentResource;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use function inertia;
 
 class PostController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -43,6 +45,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        Gate::authorize('create', Post::class);
         return inertia('Posts/Create');
     }
 

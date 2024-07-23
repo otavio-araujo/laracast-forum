@@ -21,17 +21,27 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
+    {
+        $data = $request->validate([
+            'title' => ['required', 'string', 'min:10', 'max:120'],
+            'body' => ['required', 'string', 'min:100', 'max:10000'],
+        ]);
+
+        $post = Post::create([
+            ...$data,
+            'user_id' => $request->user()->id,
+        ]);
+
+        return to_route('posts.show', $post);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
         //
     }

@@ -27,4 +27,9 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class, 'post_id');
     }
+
+    public function showRoute(array $parameters = [])
+    {
+        return route('posts.show', [$this, Str::slug($this->title), ...$parameters]);
+    }
 }

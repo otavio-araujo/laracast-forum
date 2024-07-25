@@ -105,6 +105,8 @@
                     <i class="ri-h-3"></i>
                 </button>
             </li>
+
+            <slot :editor="editor" name="toolbar"/>
         </menu>
         <EditorContent :editor="editor"/>
     </div>

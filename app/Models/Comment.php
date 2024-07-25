@@ -2,14 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\ConvertsMarkdownToHml;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Comment extends Model
 {
-    use HasFactory;
-    
+    use HasFactory, ConvertsMarkdownToHml;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

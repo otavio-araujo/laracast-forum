@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\ConvertsMarkdownToHml;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,12 +12,7 @@ use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory;
-
-    protected static function booted()
-    {
-        static::saving(fn(self $post) => $post->fill(['html' => str($post->body)->markdown()]));
-    }
+    use HasFactory, ConvertsMarkdownToHml;
 
     public function title(): Attribute
     {

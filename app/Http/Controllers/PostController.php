@@ -15,6 +15,7 @@ use function inertia;
 
 class PostController extends Controller
 {
+    private $inertia;
 
     /**
      * Display a listing of the resource.
@@ -27,11 +28,12 @@ class PostController extends Controller
             ->latest('id')
             ->paginate();
 
-        return inertia('Posts/Index', [
+        $this->inertia = inertia('Posts/Index', [
             'posts' => PostResource::collection($posts),
             'topics' => TopicResource::collection(Topic::all()),
             'selectedTopic' => fn() => $topic ? TopicResource::make($topic) : null,
         ]);
+        return $this->inertia;
     }
 
     /**
@@ -41,6 +43,7 @@ class PostController extends Controller
     {
         $data = $request->validate([
             'title' => ['required', 'string', 'min:10', 'max:120'],
+            'topic_id' => ['required', 'integer', 'exists:topics,id'],
             'body' => ['required', 'string', 'min:100', 'max:10000'],
         ]);
 
@@ -58,7 +61,9 @@ class PostController extends Controller
     public function create()
     {
         Gate::authorize('create', Post::class);
-        return inertia('Posts/Create');
+        return inertia('Posts/Create', [
+            'topics' => fn() => TopicResource::collection(Topic::all()),
+        ]);
     }
 
     /**
@@ -70,7 +75,7 @@ class PostController extends Controller
             return redirect($post->showRoute($request->query()), status: 301);
         }
 
-        $post->load('user');
+        $post->load('user', 'topic');
 
         return inertia('Posts/Show', [
             'post' => fn() => PostResource::make($post),

@@ -1,11 +1,11 @@
 <template>
     <div
         v-if="editor"
-        class="bg-white rounded-md border-0 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
-        <menu class="flex divide-x border-b">
+        class="rounded-md border-0 bg-white shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600">
+        <menu class="flex border-b divide-x">
             <li>
                 <button :class="[ editor.isActive('bold') ? 'bg-indigo-500 text-white' : 'hover:bg-gray-200']"
-                        class="px-3 py-2 rounded-tl-md"
+                        class="rounded-tl-md px-3 py-2"
                         title="Bold"
                         type="button"
                         @click="() => editor.chain().focus().toggleBold().run()">
@@ -182,7 +182,7 @@ const promptUserForHref = () => {
 
 <style scoped>
 :deep(.tiptap p.is-editor-empty:first-child::before) {
-    @apply text-gray-400 float-left h-0 pointer-events-none;
+    @apply pointer-events-none float-left h-0 text-gray-400;
     content: attr(data-placeholder);
 
 }

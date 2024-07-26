@@ -1,11 +1,11 @@
 <template>
     <div class="sm:flex">
-        <div class="mb-4 flex-shrink-0 sm:mb-0 sm:mr-4">
+        <div class="mb-4 flex-shrink-0 sm:mr-4 sm:mb-0">
             <img :src="comment.user.profile_photo_url" class="h-10 w-10 rounded-full"/>
         </div>
         <div class="flex-1">
-            <div class="prose prose-m max-w-none" v-html="comment.html"></div>
-            <span class="first-letter:uppercase block pt-1 text-xs text-gray-600">
+            <div class="max-w-none prose prose-m" v-html="comment.html"></div>
+            <span class="block pt-1 text-xs first-letter:uppercase text-gray-600">
                 By {{ comment.user.name }} - {{ relativeDate(comment.created_at) }} ago</span>
             <div class="mt-1 mt-2 flex justify-end gap-3 empty:hidden">
 
@@ -14,7 +14,7 @@
                 </form>
 
                 <form v-if="comment.can?.delete" @submit.prevent="$emit('delete', comment.id)">
-                    <button class="text-red-600 font-mono text-xs hover:font-semibold">Delete</button>
+                    <button class="font-mono text-xs text-red-600 hover:font-semibold">Delete</button>
                 </form>
             </div>
         </div>

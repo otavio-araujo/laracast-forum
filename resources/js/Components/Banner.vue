@@ -25,11 +25,11 @@ onUnmounted(() => clearTimeout(timeout.value));
 <template>
     <div class="sticky top-0 z-40">
         <div v-if="show && message" :class="{ 'bg-indigo-500': style == 'success', 'bg-red-700': style == 'danger' }">
-            <div class="max-w-screen-xl mx-auto py-2 px-3 sm:px-6 lg:px-8">
-                <div class="flex items-center justify-between flex-wrap">
-                    <div class="w-0 flex-1 flex items-center min-w-0">
+            <div class="mx-auto max-w-screen-xl px-3 py-2 sm:px-6 lg:px-8">
+                <div class="flex flex-wrap items-center justify-between">
+                    <div class="flex w-0 min-w-0 flex-1 items-center">
                         <span :class="{ 'bg-indigo-600': style == 'success', 'bg-red-600': style == 'danger' }"
-                              class="flex p-2 rounded-lg">
+                              class="flex rounded-lg p-2">
                             <svg v-if="style == 'success'" class="h-5 w-5 text-white" fill="none"
                                  stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -48,7 +48,7 @@ onUnmounted(() => clearTimeout(timeout.value));
                             </svg>
                         </span>
 
-                        <p class="ms-3 font-medium text-sm text-white truncate">
+                        <p class="truncate text-sm font-medium text-white ms-3">
                             {{ message }}
                         </p>
                     </div>
@@ -57,7 +57,7 @@ onUnmounted(() => clearTimeout(timeout.value));
                         <button
                             :class="{ 'hover:bg-indigo-600 focus:bg-indigo-600': style == 'success', 'hover:bg-red-600 focus:bg-red-600': style == 'danger' }"
                             aria-label="Dismiss"
-                            class="-me-1 flex p-2 rounded-md focus:outline-none sm:-me-2 transition"
+                            class="flex rounded-md p-2 transition -me-1 focus:outline-none sm:-me-2"
                             type="button"
                             @click.prevent="show = false"
                         >

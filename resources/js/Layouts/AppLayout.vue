@@ -55,20 +55,20 @@ const menu = [
         <Banner/>
 
         <div class="min-h-screen bg-gray-100">
-            <nav class="bg-white border-b border-gray-100">
+            <nav class="border-b border-gray-100 bg-white">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="flex justify-between h-16">
+                <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="flex h-16 justify-between">
                         <div class="flex">
                             <!-- Logo -->
-                            <div class="shrink-0 flex items-center">
+                            <div class="flex shrink-0 items-center">
                                 <Link :href="route('dashboard')">
                                     <ApplicationMark class="block h-9 w-auto"/>
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
-                            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <div class="hidden space-x-8 sm:ms-10 sm:-my-px sm:flex">
                                 <template v-for="item in menu" :key="item.name">
                                     <NavLink
                                         v-if="item.when ? item.when() : true"
@@ -80,14 +80,14 @@ const menu = [
                             </div>
                         </div>
 
-                        <div class="hidden sm:flex sm:items-center sm:ms-6">
+                        <div class="hidden sm:ms-6 sm:flex sm:items-center">
 
                             <!-- Settings Dropdown -->
-                            <div v-if="$page.props.auth.user" class="ms-3 relative">
+                            <div v-if="$page.props.auth.user" class="relative ms-3">
                                 <Dropdown align="right" width="48">
                                     <template #trigger>
                                         <button v-if="$page.props.jetstream.managesProfilePhotos"
-                                                class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
+                                                class="flex rounded-full border-2 border-transparent text-sm transition focus:border-gray-300 focus:outline-none">
                                             <img :alt="$page.props.auth.user.name"
                                                  :src="$page.props.auth.user.profile_photo_url"
                                                  class="h-8 w-8 rounded-full object-cover">
@@ -95,11 +95,11 @@ const menu = [
 
                                         <span v-else class="inline-flex rounded-md">
                                             <button
-                                                class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150"
+                                                class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:bg-gray-50 focus:outline-none active:bg-gray-50"
                                                 type="button">
                                                 {{ $page.props.auth.user.name }}
 
-                                                <svg class="ms-2 -me-0.5 h-4 w-4" fill="none"
+                                                <svg class="h-4 w-4 ms-2 -me-0.5" fill="none"
                                                      stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"
                                                      xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M19.5 8.25l-7.5 7.5-7.5-7.5" stroke-linecap="round"
@@ -143,9 +143,9 @@ const menu = [
                         </div>
 
                         <!-- Hamburger -->
-                        <div class="-me-2 flex items-center sm:hidden">
+                        <div class="flex items-center -me-2 sm:hidden">
                             <button
-                                class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out"
+                                class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
                                 @click="showingNavigationDropdown = ! showingNavigationDropdown">
                                 <svg
                                     class="h-6 w-6"
@@ -183,7 +183,7 @@ const menu = [
                     </div>
 
                     <!-- Responsive Settings Options -->
-                    <div v-if="$page.props.auth.user" class="pt-4 pb-1 border-t border-gray-200">
+                    <div v-if="$page.props.auth.user" class="border-t border-gray-200 pt-4 pb-1">
                         <div class="flex items-center px-4">
                             <div v-if="$page.props.jetstream.managesProfilePhotos" class="shrink-0 me-3">
                                 <img :alt="$page.props.auth.user.name"
@@ -192,10 +192,10 @@ const menu = [
                             </div>
 
                             <div>
-                                <div class="font-medium text-base text-gray-800">
+                                <div class="text-base font-medium text-gray-800">
                                     {{ $page.props.auth.user.name }}
                                 </div>
-                                <div class="font-medium text-sm text-gray-500">
+                                <div class="text-sm font-medium text-gray-500">
                                     {{ $page.props.auth.user.email }}
                                 </div>
                             </div>
@@ -252,7 +252,7 @@ const menu = [
                                             <ResponsiveNavLink as="button">
                                                 <div class="flex items-center">
                                                     <svg v-if="team.id == $page.props.auth.user.current_team_id"
-                                                         class="me-2 h-5 w-5 text-green-400"
+                                                         class="h-5 w-5 text-green-400 me-2"
                                                          fill="none" stroke="currentColor"
                                                          stroke-width="1.5" viewBox="0 0 24 24"
                                                          xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +275,7 @@ const menu = [
 
             <!-- Page Heading -->
             <header v-if="$slots.header" class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
                     <slot name="header"/>
                 </div>
             </header>

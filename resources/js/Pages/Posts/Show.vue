@@ -1,11 +1,11 @@
 <template>
-    <AppLayout title="">
+    <AppLayout title="Posts Show">
         <Container>
             <PageHeading>{{ post.title }}</PageHeading>
 
-            <span class="block mt-1 text-sm text-gray-600">{{ formattedDate }} ago by {{ post.user.name }}</span>
+            <span class="mt-1 block text-sm text-gray-600">{{ formattedDate }} ago by {{ post.user.name }}</span>
 
-            <article class="mt-6 prose prose-sm max-w-none" v-html="post.html"></article>
+            <article class="mt-6 max-w-none prose prose-sm" v-html="post.html"></article>
 
             <div>
                 <h2 class="mt-12 text-xl font-semibold">Comments</h2>
@@ -26,7 +26,7 @@
                 </form>
 
                 <ul class="divide-y">
-                    <li v-for="comment in comments.data" :key="comment.id" class="px-2 py-4 mt-4">
+                    <li v-for="comment in comments.data" :key="comment.id" class="mt-4 px-2 py-4">
                         <Comment :comment="comment" @delete="deleteComment" @edit="editComment"/>
                     </li>
                 </ul>

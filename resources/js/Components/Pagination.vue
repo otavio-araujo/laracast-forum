@@ -31,7 +31,7 @@
                 </p>
             </div>
             <div>
-                <nav aria-label="Pagination" class="isolate inline-flex -space-x-px rounded-md shadow-sm bg-white">
+                <nav aria-label="Pagination" class="isolate inline-flex rounded-md bg-white shadow-sm -space-x-px">
                     <Link v-for="link in meta.links"
                           :class="{
                             'z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600':link.active,
@@ -40,7 +40,7 @@
                         }"
                           :href="link.url ?? 'null'"
                           :only="only"
-                          class="relative inline-flex items-center first-of-type:rounded-l-md last-of-type:rounded-r-md px-3 py-2"
+                          class="relative inline-flex items-center last-of-type:rounded-r-md first-of-type:rounded-l-md px-3 py-2"
                           v-html="link.label">
 
                     </Link>

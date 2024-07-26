@@ -2,24 +2,33 @@
     <AppLayout>
         <Container>
             <div>
-                <Link v-if="selectedTopic" :href="route('posts.index')" class="text-indigo-500 hover:text-indigo-700 block mb-2">Back to all posts</Link>
                 <PageHeading v-text="selectedTopic ? selectedTopic.name : 'All Posts'"/>
-                <p v-if="selectedTopic" class="mt-1 text-gray-600 text-sm">{{ selectedTopic.description }}</p>
+                <p v-if="selectedTopic" class="mt-1 text-sm text-gray-600">{{ selectedTopic.description }}</p>
+
+                <menu class="flex gap-2 mt-3 overflow-x-auto pb-4 pt-1">
+                    <li>
+                        <Pill :filled="!selectedTopic" :href="route('posts.index')">All posts</Pill>
+                    </li>
+                    <li v-for="topic in topics" :key="topic.id">
+                        <Pill :filled="topic.id === selectedTopic?.id"
+                              :href="route('posts.index', { topic: topic.slug })">
+                            {{ topic.name }}
+                        </Pill>
+                    </li>
+                </menu>
             </div>
-            <ul class="divide-y mt-4">
+            <ul class="divide-y">
                 <li v-for="post in posts.data" :key="post.id"
-                    class="flex flex-col md:flex-row items-baseline justify-between">
-                    <Link :href="post.routes.show" class="block group px-2 py-4">
-                        <span class="font-bold text-lg group-hover:text-indigo-500">{{ post.title }}</span>
-                        <span class="first-letter:uppercase block pt-1 text-sm text-gray-600">
+                    class="flex flex-col items-baseline justify-between md:flex-row">
+                    <Link :href="post.routes.show" class="block px-2 py-4 group">
+                        <span class="text-lg font-bold group-hover:text-indigo-500">{{ post.title }}</span>
+                        <span class="block pt-1 text-sm first-letter:uppercase text-gray-600">
                             {{ formattedDate(post) }} ago by {{ post.user.name }}
                         </span>
                     </Link>
-                    <Link
-                        :href="route('posts.index', { topic: post.topic.slug })"
-                        class="rounded-md border border-pink-400 px-2 py-1 text-xs text-pink-400 uppercase mb-2 hover:bg-indigo-600 hover:text-indigo-300">
+                    <Pill :href="route('posts.index', { topic: post.topic.slug })">
                         {{ post.topic.name }}
-                    </Link>
+                    </Pill>
                 </li>
             </ul>
 
@@ -34,8 +43,9 @@ import Pagination from "@/Components/Pagination.vue";
 import {Link} from "@inertiajs/vue3";
 import {relativeDate} from "@/Utilities/date.js";
 import PageHeading from "@/Components/PageHeading.vue";
+import Pill from "@/Components/Pill.vue";
 
-defineProps(['posts', 'selectedTopic']);
+defineProps(['posts', 'selectedTopic', 'topics']);
 
 const formattedDate = (post) => relativeDate(post.created_at);
 </script>

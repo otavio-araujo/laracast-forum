@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link, useForm } from '@inertiajs/vue3';
+import {Head, Link, useForm} from '@inertiajs/vue3';
 import AuthenticationCard from '@/Components/AuthenticationCard.vue';
 import AuthenticationCardLogo from '@/Components/AuthenticationCardLogo.vue';
 import Checkbox from '@/Components/Checkbox.vue';
@@ -30,11 +30,11 @@ const submit = () => {
 </script>
 
 <template>
-    <Head title="Log in" />
+    <Head title="Log in"/>
 
     <AuthenticationCard>
         <template #logo>
-            <AuthenticationCardLogo />
+            <AuthenticationCardLogo/>
         </template>
 
         <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
@@ -43,45 +43,46 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Email"/>
                 <TextInput
                     id="email"
                     v-model="form.email"
-                    type="email"
+                    autocomplete="username"
+                    autofocus
                     class="mt-1 block w-full"
                     required
-                    autofocus
-                    autocomplete="username"
+                    type="email"
                 />
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError :message="form.errors.email" class="mt-2"/>
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" value="Password"/>
                 <TextInput
                     id="password"
                     v-model="form.password"
-                    type="password"
+                    autocomplete="current-password"
                     class="mt-1 block w-full"
                     required
-                    autocomplete="current-password"
+                    type="password"
                 />
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError :message="form.errors.password" class="mt-2"/>
             </div>
 
             <div class="mt-4 block">
                 <label class="flex items-center">
-                    <Checkbox v-model:checked="form.remember" name="remember" />
+                    <Checkbox v-model:checked="form.remember" name="remember"/>
                     <span class="text-sm text-gray-600 ms-2">Remember me</span>
                 </label>
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <Link v-if="canResetPassword" :href="route('password.request')" class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <Link v-if="canResetPassword" :href="route('password.request')"
+                      class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Forgot your password?
                 </Link>
 
-                <PrimaryButton class="ms-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing" class="ms-4">
                     Log in
                 </PrimaryButton>
             </div>

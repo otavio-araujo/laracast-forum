@@ -1,10 +1,13 @@
 <template>
+    <Head>
+        <link :href="post.routes.show" rel="canonical"/>
+    </Head>
     <AppLayout title="Posts Show">
         <Container>
             <Pill :href="route('posts.index', { topic: post.topic.slug })">{{ post.topic.name }}</Pill>
             <PageHeading class="mt-2">{{ post.title }}</PageHeading>
 
-            <span class="mt-1 block text-sm text-gray-600">{{ formattedDate }} ago by {{ post.user.name }}</span>
+            <span class="mt-1 block text-sm text-gray-600">{{ formattedDate }} by {{ post.user.name }}</span>
 
             <article class="mt-6 max-w-none prose prose-sm" v-html="post.html"></article>
 
@@ -16,7 +19,7 @@
                     <div>
                         <InputLabel class="sr-only" for="body">Comment</InputLabel>
                         <MarkdownEditor id="body" ref="commentTextAreaRef" v-model="commentForm.body"
-                                        editorClass="min-h-[160px]" placeholder="Speak your mind spock..."/>
+                                        editorClass="!min-h-[160px]" placeholder="Speak your mind spock..."/>
                         <InputError :message="commentForm.errors.body" class="mt-1"/>
                     </div>
 
@@ -47,7 +50,7 @@ import {relativeDate} from "@/Utilities/date.js";
 import Comment from "@/Components/Comment.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import {router, useForm} from "@inertiajs/vue3";
+import {router, useForm, Head} from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import {useConfirm} from "@/Utilities/Composables/useConfirm.js";
@@ -109,12 +112,15 @@ const deleteComment = async (commentId) => {
         return;
     }
 
-    router.delete(route('comments.destroy', {
-        comment: commentId,
-        page: props.comments.meta.current_page
-    }), {
-        preserveScroll: true,
-    })
+    router.delete(
+        route('comments.destroy', {
+            comment: commentId,
+            page: props.comments.data.length > 1
+                ? props.comments.meta.current_page
+                : Math.max(props.comments.meta.current_page - 1, 1)
+        }), {
+            preserveScroll: true,
+        })
 };
 
 </script>

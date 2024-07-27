@@ -23,7 +23,7 @@
                     <Link :href="post.routes.show" class="block px-2 py-4 group">
                         <span class="text-lg font-bold group-hover:text-indigo-500">{{ post.title }}</span>
                         <span class="block pt-1 text-sm first-letter:uppercase text-gray-600">
-                            {{ formattedDate(post) }} ago by {{ post.user.name }}
+                            {{ formattedDate(post) }} by {{ post.user.name }}
                         </span>
                     </Link>
                     <Pill :href="route('posts.index', { topic: post.topic.slug })">
